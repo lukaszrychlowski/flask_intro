@@ -1,8 +1,7 @@
 config.py
 venv/
 __pycache__/
+migrations/
 db/
-migrations/versions/5b8a5966071a_users.py
-migrations/.DS_Store
 .DS_Store
-migrations/versions/dfd575f4b032_posts.py
+
