@@ -18,7 +18,7 @@ def before_request():
 def index():
 
     posts = [
-        {'author': user('ryszard'), 'body': 'Kosmos Colorado podbija Azje!'},
+        {'author': user('ryszardzik'), 'body': 'Kosmos Colorado podbija Azje!'},
         {'author': user('kunkagwiazdeczka'), 'body': 'Kosmos Colorado w drodze do Europy'}
     ]
     return render_template('index.html', title='Home', posts=posts)
