@@ -1,5 +1,3 @@
-from base64 import urlsafe_b64decode
-from urllib.request import urlcleanup
 from app import app, db
 from flask import render_template, flash, redirect, url_for, request
 from app.forms import LoginForm, PostForm, RegistrationForm, EditProfileForm, EmptyForm
