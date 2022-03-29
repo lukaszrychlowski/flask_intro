@@ -1,3 +1,4 @@
+from ast import Eq
 from operator import length_hint
 from flask import Flask
 from flask_wtf import FlaskForm
@@ -44,3 +45,8 @@ class PostForm(FlaskForm):
 class ResetPasswordRequestForm(FlaskForm):
     email = StringField('email', validators=[DataRequired(), Email()])
     submit = SubmitField('password reset')
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('password', validators=[DataRequired()])
+    password2 = PasswordField('repeat pw', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('req a new pw')
