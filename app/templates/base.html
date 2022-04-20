@@ -1,7 +1,7 @@
 {% extends 'bootstrap/base.html' %}
 {% block title %}
-    {% if title %} {{ title }} - Micro! 
-    {% else %} Hello! Welcome to Micro!
+    {% if title %} {{ title }} - MELTSPINNING! 
+    {% else %} MELTSPINNING!
     {% endif %}
 {% endblock %}
 
@@ -15,12 +15,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url_for('index') }}">MELTSPINNING ALUMINIUM ALLOYS SINCE 1965</a>
+                <a class="navbar-brand" href="{{ url_for('index') }}">MELTSPINNING ALUMINIUM ALLOYS SINCE 1979</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('index') }}">Home</a></li>
-                    <li><a href="{{ url_for('explore') }}">Explore</a></li>
+                    <li><a href="{{ url_for('explore') }}">Tasks</a></li>
+                    <li><a href="{{ url_for('castings') }}">Castings</a></li>
+                    <li><a href="{{ url_for('extrusion') }}">Extrusions</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_anonymous %}

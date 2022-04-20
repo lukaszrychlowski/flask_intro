@@ -1,8 +1,8 @@
 from app import app, db
 from flask import render_template, flash, redirect, url_for, request
-from app.forms import LoginForm, PostForm, RegistrationForm, EditProfileForm, EmptyForm, ResetPasswordRequestForm, ResetPasswordForm
+from app.forms import CastingsForm, ExtrusionForm, LoginForm, PostForm, RegistrationForm, EditProfileForm, EmptyForm, ResetPasswordRequestForm, ResetPasswordForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Post
+from app.models import Extrusion, User, Post, Casting
 from werkzeug.urls import url_parse
 from datetime import datetime
 from app.email import send_password_reset_email
@@ -155,3 +155,28 @@ def reset_password(token):
     if not user:
         return redirect(url_for('index'))
     form = ResetPasswordForm()
+
+@app.route('/castings', methods=['GET', 'POST'])
+@login_required
+def castings():
+    form = CastingsForm()
+    if form.validate_on_submit():
+        casting = Casting(casting_no=form.casting_no.data, casting_date=form.casting_date.data, casting_composition=form.casting_composition.data)
+        db.session.add(casting)
+        db.session.commit()
+        flash('casting added')
+        return redirect(url_for('castings'))
+    return render_template('castings.html', title='castings', form=form)
+
+@app.route('/extrusions', methods=['GET', 'POST'])
+@login_required
+def extrusion():
+    form = ExtrusionForm()
+    if form.validate_on_submit():
+        extrusion = Extrusion(extrusion_no=form.extrusion_no.data, extrusion_composition=form.extrusion_composition.data)
+        db.session.add(extrusion)
+        db.session.commit()
+        flash('extrusion added')
+        return redirect(url_for('extrusion'))
+    return render_template('extrusions.html', title='extrusions', form=form)
+

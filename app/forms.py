@@ -1,8 +1,6 @@
-from ast import Eq
-from operator import length_hint
 from flask import Flask
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, IntegerField, DateField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, Length
 from app import email
 from app.models import User
@@ -50,3 +48,14 @@ class ResetPasswordForm(FlaskForm):
     password = PasswordField('password', validators=[DataRequired()])
     password2 = PasswordField('repeat pw', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('req a new pw')
+
+class CastingsForm(FlaskForm):
+    casting_no = IntegerField('casting no.', validators=[DataRequired()])
+    casting_date = DateField('casting date')
+    casting_composition = StringField('chemical composition', validators=[DataRequired()])
+    submit = SubmitField('add')
+
+class ExtrusionForm(FlaskForm):
+    extrusion_no = IntegerField('extr. no.', validators=[DataRequired()])
+    extrusion_composition = StringField('chemical composition', validators=[DataRequired()])
+    submit = SubmitField('add')

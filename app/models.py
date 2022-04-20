@@ -61,7 +61,7 @@ class User(UserMixin, db.Model):
                
     def avatar(self, size):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
-        return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
+        return 'https://www.gravatar.com/avatar/{}?d=monsterid&s={}'.format(
             digest, size)    
             
     def __repr__(self):
@@ -86,4 +86,15 @@ class Post(db.Model):
 def load_user(id):
     return User.query.get(int(id))
     
+class Casting(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    casting_no = db.Column(db.Integer, unique=True)
+    casting_composition = db.Column(db.String(140))
+    casting_date = db.Column(db.DateTime)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+class Extrusion(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    extrusion_no = db.Column(db.Integer, unique=True)
+    extrusion_composition = db.Column(db.String(140))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
