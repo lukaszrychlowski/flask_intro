@@ -129,7 +129,7 @@ def unfollow(username):
 
 @app.route('/tasks')
 @login_required
-def explore():
+def tasks():
     form = PostForm()
     if form.validate_on_submit():
         post = Post(body=form.post.data, author=current_user)
@@ -173,7 +173,7 @@ def castings():
         db.session.commit()
         flash('casting added')
         return redirect(url_for('castings'))
-    return render_template('castings.html', title='castings', form=form, castings=castings)
+    return render_template('castings.html', title='castings', form=form, castings=castings, user=user)
 
 @app.route('/extrusions', methods=['GET', 'POST'])
 @login_required
@@ -185,11 +185,11 @@ def extrusion():
         db.session.commit()
         flash('extrusion added')
         return redirect(url_for('extrusion'))
-    return render_template('extrusions.html', title='extrusions', form=form)
+    return render_template('extrusions.html', title='extrusions', form=form,  user=user)
 
 @app.route('/dummy', methods=['GET', 'POST'])
 @login_required
 def dummy():
-    casting_data = Casting.query.all()
-    extrusion_data = Extrusion.query.all()
+    casting_data = Casting.query.order_by(Casting.casting_no.asc()).all()
+    extrusion_data = Extrusion.query.order_by(Extrusion.extrusion_no.asc()).all()
     return render_template('dummy.html', title='dummy', castings=casting_data, extrusions=extrusion_data)
