@@ -127,11 +127,18 @@ def unfollow(username):
     else:
         return redirect(url_for('index'))
 
-@app.route('/explore')
+@app.route('/tasks')
 @login_required
 def explore():
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(body=form.post.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('posted!')
+        return redirect(url_for('tasks'))
     posts = Post.query.order_by(Post.timestamp.desc()).all()
-    return render_template('index.html', title='Explore', posts=posts)
+    return render_template('tasks.html', title='Tasks', user=user, form=form, posts=posts)
 
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
@@ -166,7 +173,7 @@ def castings():
         db.session.commit()
         flash('casting added')
         return redirect(url_for('castings'))
-    return render_template('castings.html', title='castings', form=form)
+    return render_template('castings.html', title='castings', form=form, castings=castings)
 
 @app.route('/extrusions', methods=['GET', 'POST'])
 @login_required
@@ -180,3 +187,9 @@ def extrusion():
         return redirect(url_for('extrusion'))
     return render_template('extrusions.html', title='extrusions', form=form)
 
+@app.route('/dummy', methods=['GET', 'POST'])
+@login_required
+def dummy():
+    castings = Casting.query.all()
+    extrusions = Extrusion.query.all()
+    return render_template('dummy.html', title='dummy', castings=castings, extrusions=extrusions)
