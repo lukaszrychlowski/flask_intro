@@ -3,16 +3,18 @@
 
 {% block app_content %}
 
-<h1>Add new casting</h1>
-<div class="row">
+<h1>Castings</h1>
     <div class="col-md-4">
-        {{ wtf.quick_form(form) }}
-    </div>
-    <div class="col-md-4">
-        {% for c in casting %}
+        {% for c in castings %}
             {% include '_casting.html' %}
         {% endfor %}
     </div>
-</div>
+<h1>Extr.</h1>
+    <div class="col-md-4">
+        {% for e in extrusions %}
+            {% include '_extrusion.html' %}
+        {% endfor %}
+    </div>
+
 {% endblock %}
     
