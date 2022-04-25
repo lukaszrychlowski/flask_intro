@@ -190,6 +190,6 @@ def extrusion():
 @app.route('/dummy', methods=['GET', 'POST'])
 @login_required
 def dummy():
-    castings = Casting.query.all()
-    extrusions = Extrusion.query.all()
-    return render_template('dummy.html', title='dummy', castings=castings, extrusions=extrusions)
+    casting_data = Casting.query.all()
+    extrusion_data = Extrusion.query.all()
+    return render_template('dummy.html', title='dummy', castings=casting_data, extrusions=extrusion_data)
