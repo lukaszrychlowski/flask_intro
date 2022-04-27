@@ -3,11 +3,15 @@
 
 {% block app_content %}
 
-<h1>Add new casting</h1>
-<div class="row">
+<h1>Castings</h1>
+<p><a href="{{ url_for('new_casting') }}">Add new casting</a></p>
+
     <div class="col-md-4">
-        {{ wtf.quick_form(form) }}
+        {% for casting in castings %}
+        {% include '_casting.html'   %}
+        {% endfor %}
     </div>
-</div>
+
+
+
 {% endblock %}
-    

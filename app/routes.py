@@ -166,6 +166,12 @@ def reset_password(token):
 @app.route('/castings', methods=['GET', 'POST'])
 @login_required
 def castings():
+    casting_data = Casting.query.order_by(Casting.casting_no.asc()).all()
+    return render_template('castings.html', title='castings', castings=casting_data)
+
+@app.route('/new_casting', methods=['GET', 'POST'])
+@login_required
+def new_casting():
     form = CastingsForm()
     if form.validate_on_submit():
         casting = Casting(casting_no=form.casting_no.data, casting_date=form.casting_date.data, casting_composition=form.casting_composition.data)
@@ -173,7 +179,7 @@ def castings():
         db.session.commit()
         flash('casting added')
         return redirect(url_for('castings'))
-    return render_template('castings.html', title='castings', form=form, castings=castings, user=user)
+    return render_template('new_casting.html', title='new casting', form=form, user=user)
 
 @app.route('/extrusions', methods=['GET', 'POST'])
 @login_required
