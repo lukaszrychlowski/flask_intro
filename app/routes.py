@@ -1,3 +1,4 @@
+from pkg_resources import empty_provider
 from app import app, db
 from flask import render_template, flash, redirect, url_for, request
 from app.forms import CastingsForm, ExtrusionForm, LoginForm, PostForm, RegistrationForm, EditProfileForm, EmptyForm, ResetPasswordRequestForm, ResetPasswordForm
@@ -168,6 +169,12 @@ def reset_password(token):
 def castings():
     casting_data = Casting.query.order_by(Casting.casting_no.asc()).all()
     return render_template('castings.html', title='castings', castings=casting_data)
+
+@app.route('/casting/<int:casting_no>', methods=['GET', 'POST'])
+def casting(casting_no):
+    form = EmptyForm()
+    casting = Casting.query.filter_by(casting_no=casting_no).first_or_404()
+    return render_template('casting.html', castings=casting, form=form)
 
 @app.route('/new_casting', methods=['GET', 'POST'])
 @login_required

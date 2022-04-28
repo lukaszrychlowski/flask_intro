@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+<h1>Casting {{ castings.casting_no }}</h1>
+    <div class="col-md-4">
+        casting date. {{ castings.casting_date.date() }} <br>
+        casting comp. {{ castings.casting_composition }} <br>
+    </div>
+
+{% endblock %}

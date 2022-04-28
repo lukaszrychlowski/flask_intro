@@ -1,9 +1,10 @@
-<table class="table table-hover" onclick="location.href='index'">
+<table class="table table-hover">
     <tr>
         <td width="70px">
             casting no. {{ casting.casting_no }} <br>
             casting date. {{ casting.casting_date.date() }} <br>
             casting comp. {{ casting.casting_composition }} <br>
+            <a href="javascript:window.open('{{ url_for('casting', casting_no=casting.casting_no) }}', 'newwindow', 'width=600,height=1000')">more info</a>
         </td> 
     </tr>
 </table>

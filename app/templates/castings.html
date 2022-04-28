@@ -4,14 +4,12 @@
 {% block app_content %}
 
 <h1>Castings</h1>
-<p><a href="{{ url_for('new_casting') }}">Add new casting</a></p>
+<p><a href="{{ url_for('new_casting') }}">Add new casting</a></p><br>
 
     <div class="col-md-4">
         {% for casting in castings %}
         {% include '_casting.html'   %}
         {% endfor %}
     </div>
-
-
 
 {% endblock %}
