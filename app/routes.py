@@ -1,10 +1,12 @@
 from pkg_resources import empty_provider
+import os
 from app import app, db
 from flask import render_template, flash, redirect, url_for, request
 from app.forms import CastingsForm, ExtrusionForm, LoginForm, PostForm, RegistrationForm, EditProfileForm, EmptyForm, ResetPasswordRequestForm, ResetPasswordForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import Extrusion, User, Post, Casting
 from werkzeug.urls import url_parse
+from werkzeug.utils import secure_filename
 from datetime import datetime
 from app.email import send_password_reset_email
 
@@ -13,7 +15,27 @@ def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
-        
+
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ['txt', 'csv', 'xlsx']
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            flash('no file')
+            return redirect(url_for('upload'))
+        file = request.files['file']
+        if file.filename == '':
+            flash('no file or empty filename')
+            return redirect(url_for('upload'))
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect(url_for('new_casting'))
+    return render_template('upload.html', title='upload new file')
+
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 @login_required

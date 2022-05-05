@@ -4,4 +4,4 @@ __pycache__/
 migrations/
 db/
 .DS_Store
-
+upload/
